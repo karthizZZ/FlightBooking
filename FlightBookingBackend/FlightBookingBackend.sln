@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.UserManagement", "Services.UserManagement\Services.UserManagement.csproj", "{88FDD339-4C47-460C-B6CD-698E34E90B5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.UserManagement", "Services.UserManagement\Services.UserManagement.csproj", "{88FDD339-4C47-460C-B6CD-698E34E90B5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.AirlineInventoryManagement", "Services.AirlineInventoryManagement\Services.AirlineInventoryManagement.csproj", "{0F2E4C01-8349-458C-BAAA-0ADD91EBE7EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.AirlineInventoryManagement", "Services.AirlineInventoryManagement\Services.AirlineInventoryManagement.csproj", "{0F2E4C01-8349-458C-BAAA-0ADD91EBE7EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.AirlineBookingManagement", "Services.AirlineBookingManagement\Services.AirlineBookingManagement.csproj", "{84EB88F3-FFBD-4CB0-9BD8-AB331DFC2ECF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.AirlineBookingManagement", "Services.AirlineBookingManagement\Services.AirlineBookingManagement.csproj", "{84EB88F3-FFBD-4CB0-9BD8-AB331DFC2ECF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.InvoiceManagement", "Services.InvoiceManagement\Services.InvoiceManagement.csproj", "{E983737E-D0D0-484E-92AA-8F80C1D242CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.InvoiceManagement", "Services.InvoiceManagement\Services.InvoiceManagement.csproj", "{E983737E-D0D0-484E-92AA-8F80C1D242CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGateway", "APIGateway\APIGateway.csproj", "{57613A91-C1DA-456C-AB64-E4EA04558F12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGatewayProject", "APIGatewayProject\APIGatewayProject.csproj", "{D21D96F3-C3C5-4910-8B14-265AAA6DC58D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{E983737E-D0D0-484E-92AA-8F80C1D242CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E983737E-D0D0-484E-92AA-8F80C1D242CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E983737E-D0D0-484E-92AA-8F80C1D242CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57613A91-C1DA-456C-AB64-E4EA04558F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57613A91-C1DA-456C-AB64-E4EA04558F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57613A91-C1DA-456C-AB64-E4EA04558F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57613A91-C1DA-456C-AB64-E4EA04558F12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D21D96F3-C3C5-4910-8B14-265AAA6DC58D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D21D96F3-C3C5-4910-8B14-265AAA6DC58D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D21D96F3-C3C5-4910-8B14-265AAA6DC58D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D21D96F3-C3C5-4910-8B14-265AAA6DC58D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

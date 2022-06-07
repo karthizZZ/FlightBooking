@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Services.AirlineInventoryManagement.DbContexts;
+using Services.AirlineInventoryManagement.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +15,22 @@ namespace Services.AirlineInventoryManagement
 {
     public class Startup
     {
+        private IConfiguration config;
+
+        public Startup(IConfiguration _config)
+        {
+            config = _config;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContextPool<ApplicationDbContext>(
+                 options => options.UseSqlServer(config.GetConnectionString("EmployeeDBConnection")));
+            services.AddMvc();
+            services.AddScoped<IAirlineMasterRepository, AirlineMasterRepository>();
+            services.AddScoped<IAirlineManagementRepository, AirlineManagementRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -24,7 +40,7 @@ namespace Services.AirlineInventoryManagement
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseMvcWithDefaultRoute();
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
