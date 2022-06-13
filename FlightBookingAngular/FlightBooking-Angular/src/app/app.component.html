@@ -1,5 +1,23 @@
 <!-- <app-nav-bar></app-nav-bar>
 <h1>Flight Reservation Systems</h1> -->
 
-<app-nav-bar></app-nav-bar>
-<router-outlet></router-outlet>
+<!-- <app-nav-bar></app-nav-bar>
+<router-outlet></router-outlet> -->
+
+<div id="app">
+    <nav class="navbar navbar-expand navbar-light bg-light" *ngIf="!isLoggedIn">
+      <a href="#" class="navbar-brand">Flight Reservation System</a>
+      <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+        <li class="nav-item">
+          <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a href="/login" class="nav-link" routerLink="login">Login</a>
+        </li>
+      </ul>
+    </nav>
+    <app-nav-bar  *ngIf="isLoggedIn"></app-nav-bar>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

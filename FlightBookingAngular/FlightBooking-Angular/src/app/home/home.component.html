@@ -1,1 +1,134 @@
-<p>home works!</p>
+<div id="booking" class="section">
+    <div class="section-center">
+        <div class="container">
+            <div class="row">
+                <!-- <div class="col-md-4">
+                    <div class="booking-cta">
+                        <h1>Book your flight today</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate laboriosam numquam at</p>
+                    </div>
+                </div> -->
+                
+                <div class="col-md-5 col-md-offset-1">
+                    <div class="booking-form">
+                        <form #f="ngForm" (ngSubmit)="onClickSubmt(f.value)">
+                            <div class="form-group">
+                                <div class="form-checkbox">
+                                    <label for="one-way">
+                                        <input type="radio" value="one-way"  id="one-way" name="flighttype" checked [(ngModel)]="triptype">
+                                        <span></span>One way
+                                    </label>
+                                    <label for="roundtrip">
+                                        <input type="radio" value="roundtrip" id="roundtrip" name="flighttype" [(ngModel)]="triptype">
+                                        <span></span>Roundtrip
+                                    </label>
+                                    
+                                    <!-- <label for="multi-city">
+                                        <input type="radio" id="multi-city" name="flight-type">
+                                        <span></span>Multi-City
+                                    </label> -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Flying from</span>
+                                        <input class="form-control" name="fromairport" type="text" placeholder="City or airport" ngModel>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Flying from</span>
+                                        <select class="form-control" name="fromairport" ngModel>
+                                            <option value="">Select...</option>
+                                            <option *ngFor="let fl of airportList" [value]="fl.airportID">{{fl.airportName + '(' + 
+                                              fl.location + ')'  }}</option>
+                                        </select>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Flying to</span>
+                                        <input class="form-control" name="toairport" type="text" placeholder="City or airport" ngModel>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Flying to</span>
+                                        <select class="form-control" name="toairport" ngModel>
+                                            <option value="">Select...</option>
+                                            <option *ngFor="let fl of airportList" [value]="fl.airportID">{{fl.airportName + '(' + 
+                                              fl.location + ')'  }}</option>
+                                        </select>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Departing</span>
+                                        <input class="form-control" name="departingdate" type="date" required="true" ngModel>
+                                    </div>
+                                </div>
+                                <div *ngIf="triptype=='roundtrip'" class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Returning</span>
+                                        <input class="form-control" name="returningdate" type="date" required="true" ngModel>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label">No Of Tickets</span>
+                                        <input class="form-control" name="noofticket" type="text" placeholder="No Of Tickets" ngModel>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Children (0-17)</span>
+                                        <select class="form-control">
+                                            <option>0</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                        </select>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Travel class</span>
+                                        <select class="form-control" name="seattype" ngModel>
+                                            <option value="Economy">Economy class</option>
+                                            <option value="Business">Business class</option>
+                                        </select>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-btn">
+                                <button class="submit-btn" type="submit">Show flights</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div *ngIf="searchResult !=undefined && searchResult.length >0" class="col-md-7 col-md-offset-1">
+                    <div class="booking-form">
+                        <div class="card mb-2" *ngFor="let obj of searchResult">
+                            <h5 class="card-header">{{obj.airlineName}}</h5>
+                            <div class="card-body">
+                              <h5 class="card-title">{{obj.fromAirport + ':                        '}} {{obj.startTime | date:"shortTime"}}</h5>
+                              <h5 class="card-title">{{obj.toAirport + ':                        ' }} {{obj.reachTime | date:"shortTime"}}</h5>
+        
+                              <p class="card-text">{{'Ticket Cost:' + obj.ticketPrice}}</p>
+                              <a href="#" class="btn btn-primary">Book</a>
+                            </div>
+                          </div>                                                
+                    </div>                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

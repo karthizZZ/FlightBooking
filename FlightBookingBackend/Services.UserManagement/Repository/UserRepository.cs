@@ -65,7 +65,7 @@ namespace Services.UserManagement.Repository
         {
             if(UserCred.Email!=null & UserCred.Password != null)
             {
-                User dbUserDetails = _db.User.FirstOrDefault(x => x.Email == UserCred.Email && x.Password==UserCred.Password
+                User dbUserDetails = _db.User.FirstOrDefault(x => x.Email == UserCred.Email 
                 && x.IsDeleted==false);
                 if (dbUserDetails != null)
                 {

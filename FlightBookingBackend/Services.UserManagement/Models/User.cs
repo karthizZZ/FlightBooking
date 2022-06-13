@@ -20,6 +20,10 @@ namespace Services.UserManagement.Models
 
         public string Password { get; set; }
 
+        public byte[] PasswordHash { get; set; }
+
+        public byte[] PasswordSalt { get; set; }
+
         [DefaultValue(false)]
         public int IsAdminUser { get; set; }
 

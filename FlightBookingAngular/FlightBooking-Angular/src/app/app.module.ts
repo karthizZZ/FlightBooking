@@ -16,6 +16,8 @@ import { TableModule } from 'primeng/table';
 import { CalendarModule } from 'primeng/calendar';
 import { SliderModule } from 'primeng/slider';
 import { UserService } from './service/user.service';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { UserService } from './service/user.service';
     HomeComponent,
     UserListComponent,
     AddUserComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,7 @@ namespace APIGatewayProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +39,8 @@ namespace APIGatewayProject
             //        await context.Response.WriteAsync("Hello World!");
             //    });
             //});
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+
             await app.UseOcelot();
         }
     }

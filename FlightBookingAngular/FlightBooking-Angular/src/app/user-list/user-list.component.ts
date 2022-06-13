@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { User } from '../user';
+import { TokenStorageService } from '../service/token-storage.service';
 
 @Component({
   selector: 'app-user-list',
@@ -11,8 +13,11 @@ export class UserListComponent implements OnInit {
     userList: User[] = [];
     first = 0;
     rows = 10;
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService,private tokenStorage: TokenStorageService,private router: Router) {}
     ngOnInit(): void {
+        if (!this.tokenStorage.getToken()) {
+            this.router.navigate(['/login'])
+        }
         // Get Users from UserService
         this.userList = this.userService.getUsers();
     }

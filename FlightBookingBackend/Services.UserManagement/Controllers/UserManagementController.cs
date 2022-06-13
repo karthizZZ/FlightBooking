@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Services.UserManagement.Models;
+using Services.UserManagement.Models.DTO;
 using Services.UserManagement.Repository;
+using Services.UserManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Services.UserManagement.Controllers
@@ -14,16 +19,35 @@ namespace Services.UserManagement.Controllers
     {
         private readonly IUserRepository _userRepository;
 
-        public UserManagementController(IUserRepository userRepository)
+        public readonly ITokenService _tokenService;
+
+        public UserManagementController(IUserRepository userRepository, ITokenService tokenService)
         {
             _userRepository = userRepository;
+            _tokenService = tokenService;
         }
 
+        [AllowAnonymous]
         [HttpPost("AddNewUser")]
-        public  bool AddNewUser([FromBody]User userDetails)
+        public ActionResult<LoginResponsedto> AddNewUser([FromBody]User userDetails)
         {
-            bool IsSuccess =  _userRepository.AddNewUser(userDetails);
-            return IsSuccess;
+            var hmac = new HMACSHA512();
+
+            var user = new User
+            {
+                FirstName = userDetails.FirstName,
+                LastName = userDetails.LastName,
+                Email = userDetails.Email,
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDetails.Password)),
+                PasswordSalt = hmac.Key
+            };
+            bool IsSuccess =  _userRepository.AddNewUser(user);
+            return new LoginResponsedto
+            {
+                UserName = user.FirstName + "" + user.LastName,
+                Email = user.Email,
+                Token = _tokenService.CreatedToken(user)
+            };
         }
 
         [HttpPost("ChangeUserPassword")]
@@ -47,6 +71,7 @@ namespace Services.UserManagement.Controllers
             return IsSuccess;
         }
 
+        [Authorize]
         [HttpGet("GetUserList")]
         public List<User> GetUserList()
         {
@@ -55,11 +80,25 @@ namespace Services.UserManagement.Controllers
             return objUserList;
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
-        public User Login([FromBody] User UserCredentials)
+        public ActionResult<LoginResponsedto> Login([FromBody] User UserCredentials)
         {
             User UserProfile = _userRepository.Login(UserCredentials);
-            return UserProfile;
+            if (UserProfile == null) return Unauthorized();
+
+            var hmac = new HMACSHA512(UserProfile.PasswordSalt);
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(UserCredentials.Password));
+            for(int i=0; i<computedHash.Length; i++)
+            {
+                if (computedHash[i] != UserProfile.PasswordHash[i]) return Unauthorized();
+            }
+            return new LoginResponsedto
+            {
+                UserName = UserProfile.FirstName + "" + UserProfile.LastName,
+                Email = UserProfile.Email,
+                Token = _tokenService.CreatedToken(UserProfile)
+            };           
         }
     }
 }
