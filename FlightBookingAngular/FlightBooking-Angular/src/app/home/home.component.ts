@@ -1,5 +1,6 @@
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IAirport } from '../interface/airport-model';
 import { ISearchInput } from '../interface/searchinput-model';
 import { ISearchResult } from '../interface/searchresult-model';
@@ -20,7 +21,11 @@ export class HomeComponent implements OnInit {
   searchInput: ISearchInput;
   searchResult: ISearchResult[];
 
-  constructor(private http:HttpClient) { }
+  bookingDate:Date;
+  ticketNumbers:number;
+  seatType:string ;
+
+  constructor(private http:HttpClient, private router:Router) { }
 
   ngOnInit(): void {
     this.http.get('https://localhost:44345/api/airline/GetAirports').subscribe(
@@ -51,5 +56,15 @@ export class HomeComponent implements OnInit {
       }
     );
     console.log(inputData);
+  }
+
+  bookTicket(obj:ISearchResult){
+    obj.ticketNumbers = this.ticketNumbers;
+    obj.bookingDate=this.bookingDate;
+    obj.seatType = this.seatType;
+    this.router.navigate(['/book-flight', {my_object: JSON.stringify(obj)}])
+    .then(() => {
+      
+    });
   }
 }

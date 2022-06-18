@@ -1,0 +1,178 @@
+
+
+
+<div class="container">
+    <h5>Add Schedule</h5>
+    <br/>
+
+    <form [formGroup]="airlineScheduleform" autocomplete="off">
+        <div class=" form-group">
+            <label for="airline" class="form-label">Airline Name</label>
+            <br/>
+            <p-autoComplete [style]="{'width':'450px'}"   #airline [suggestions]="filteredAirlines"
+            (completeMethod)="filterCountry($event)" formControlName="airline" field="airlineName" name="airline" [dropdown]="true">
+            <ng-template let-airline pTemplate="item">
+              <div class="airline-item">
+                <div>{{airline.airlineName}}</div>
+              </div>
+            </ng-template>
+          </p-autoComplete>         
+        </div>
+        <div class="form-row">
+        <div class="form-group col-md-5">
+            <label for="flightNo" class="form-label">Flight No</label>
+            <div class="input-group has-validation">
+                <input type="text" #flightNo pInputText [ngClass]="{'form-control': true, 'is-invalid': airlineScheduleform.get('flightNo')?.invalid &&
+                (airlineScheduleform.get('flightNo')?.dirty || airlineScheduleform.get('flightNo')?.touched)}" id="flightNo" name="flightNo"
+                    formControlName="flightNo" placeholder="Flight No">
+                <div class="invalid-feedback">
+                    This field is required.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="mb-1 form-group col-md-5">
+            <label for="flightName" class="form-label">Flight Name</label>
+            <div class="input-group has-validation">
+                <input type="text" #flightName pInputText [ngClass]="{'form-control': true, 'is-invalid': airlineScheduleform.get('flightName')?.invalid &&
+                (airlineScheduleform.get('flightName')?.dirty || airlineScheduleform.get('flightName')?.touched)}" id="flightName" name="flightName"
+                    formControlName="flightName" placeholder="Flight Name">
+                <div class="invalid-feedback">
+                    This field is required.
+                </div>
+            </div>
+        </div>
+    </div>
+      
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="fromAirport" class="form-label">From Location</label>
+                <br/>
+                <p-autoComplete [style]="{'width':'450px'}"  #fromAirport [suggestions]="filteredAirportList"
+                (completeMethod)="filterFromAirportList($event)"  [panelStyleClass]="cmmo" formControlName="fromAirport" field="airportName" name="fromAirport" [dropdown]="true">
+                <ng-template let-airport pTemplate="item">
+                  <div class="airline-item">
+                    <div>{{airport.airportName + '(' + airport.location + ')'}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete> 
+              </div>
+            <div class="form-group col-md-6">
+                <label for="toAirport" class="form-label">To Location</label>
+                <br/>
+                <p-autoComplete [style]="{'width':'450px'}"  #toAirport [suggestions]="filteredToAirportList"
+                (completeMethod)="filterToAirportList($event)" class="cmmo" formControlName="toAirport" field="airportName" name="toAirport" [dropdown]="true">
+                <ng-template let-airport pTemplate="item">
+                  <div class="airline-item">
+                    <div>{{airport.airportName + '(' + airport.location + ')'}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete> 
+          </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6"> 
+                <label for="startTime" class="form-label">Start Time</label>
+                <timepicker  [(ngModel)]="startTime" id="startTime" name="startTime" formControlName="startTime"></timepicker>
+            </div>
+            <div class="form-group col-md-6"> 
+                <label for="reachTime" class="form-label">Reach Time</label>
+                <timepicker  [(ngModel)]="reachTime" id="reachTime" name="reachTime" formControlName="reachTime"></timepicker>
+            </div>
+        </div>
+        <div class="mb-1">
+            <label class="form-label">Meal Type</label>
+            <br/>
+        <div class="input-group">  
+            <div class="form-check form-check-inline">
+                <p-radioButton name="mealType" class="form-check-input" formControlName="mealType" value="Veg" [(ngModel)]="city" inputId="city1"></p-radioButton>
+                <label class="form-check-label" for="city1">Veg</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <p-radioButton class="form-check-input" formControlName="mealType" name="mealType" value="Nonveg" [(ngModel)]="city" inputId="city2"></p-radioButton>
+                <label class="form-check-label" for="city2">Non-Veg</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <p-radioButton class="form-check-input" formControlName="mealType" name="mealType" value="Veg/Nonveg" [(ngModel)]="city" inputId="city3"></p-radioButton>
+                <label class="form-check-label" for="city3">Both</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <p-radioButton class="form-check-input" formControlName="mealType" name="mealType" value="none" [(ngModel)]="city" inputId="city3"></p-radioButton>
+                <label class="form-check-label" for="city3">Not Available</label>
+            </div>
+        </div>
+        </div>
+        <br />
+       <div class="mb-1">
+        <label class="form-label">Availability Days</label>
+        <br/>
+        <div class="input-group">  
+            
+            <div class="form-check form-check-inline">
+                <p-radioButton name="scheduleType" class="form-check-input" formControlName="scheduleType" value="daily" [(ngModel)]="availabilityType" inputId="typ1"></p-radioButton>
+                <label class="form-check-label" for="typ1">Daily</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <p-radioButton class="form-check-input" formControlName="scheduleType" name="scheduleType" value="weekdays" [(ngModel)]="availabilityType" inputId="typ2"></p-radioButton>
+                <label class="form-check-label" for="typ2">Week days</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <p-radioButton class="form-check-input" formControlName="scheduleType" name="scheduleType" value="weekends" [(ngModel)]="availabilityType" inputId="typ3"></p-radioButton>
+                <label class="form-check-label" for="typ3">Weekends</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <p-radioButton class="form-check-input" formControlName="scheduleType" name="scheduleType" value="specificdays" [(ngModel)]="availabilityType" inputId="typ4"></p-radioButton>
+                <label class="form-check-label" for="typ4">Specific days</label>
+            </div>
+        </div>
+        </div>
+       
+        <div *ngIf="availabilityType=='specificdays'" class=" form-group">
+            <br />
+            <label for="airline" class="form-label">Scheduled Days</label>
+            <br/>
+            <p-multiSelect [options]="days"  [style]="{'width':'400px'}" formControlName="scheduledDays" [(ngModel)]="selectedDays" defaultLabel="Select days" optionLabel="weekDay"
+	        display="chip">
+        </p-multiSelect>        
+        </div>
+        <br/>
+        <div class="mb-1">
+            <label>Seat & Cost Deatils</label>
+            <div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Economy Class</label>
+                    <div class="form-row">
+                       <div class="form-group col-md-6">
+                        <input type="text" class="form-control" formControlName="ecNoOfSeats" name="ecNoOfSeats" id="ecNoOfSeats" placeholder="No Of Seats">
+                       </div>
+                       <div class="form-group col-md-6">
+                        <input type="text" class="form-control" formControlName="ecTicketCost" name="ecTicketCost" id="ecTicketCost" placeholder="Ticket Cost">
+                       </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Business Class</label>
+                    <div class="form-row">
+                       <div class="form-group col-md-6">
+                        <input type="text" class="form-control" formControlName="bcNoOfSeats" name="bcNoOfSeats" id="bcNoOfSeats" placeholder="No Of Seats">
+                       </div>
+                       <div class="form-group col-md-6">
+                        <input type="text" class="form-control" formControlName="bcTicketCost" name="bcTicketCost" id="bcTicketCost" placeholder="Ticket Cost">
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-1">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button (click)="save()" class="btn btn-primary" type="button">
+                   Save</button>
+            </div>
+        </div>
+        <!-- <div class="mb-1">
+            {{airlineScheduleform.value |json}}
+        </div> -->
+    </form>
+</div>
+<p-toast></p-toast>

@@ -69,7 +69,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label">Departing</span>
-                                        <input class="form-control" name="departingdate" type="date" required="true" ngModel>
+                                        <input  class="form-control" name="departingdate" type="date" required="true" [(ngModel)]="bookingDate">
                                     </div>
                                 </div>
                                 <div *ngIf="triptype=='roundtrip'" class="col-md-6">
@@ -83,7 +83,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label">No Of Tickets</span>
-                                        <input class="form-control" name="noofticket" type="text" placeholder="No Of Tickets" ngModel>
+                                        <input class="form-control" name="noofticket" type="text" placeholder="No Of Tickets" [(ngModel)]="ticketNumbers">
                                     </div>
                                 </div>
                                 <!-- <div class="col-md-4">
@@ -100,7 +100,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label">Travel class</span>
-                                        <select class="form-control" name="seattype" ngModel>
+                                        <select class="form-control" name="seattype" [(ngModel)]="seatType">
                                             <option value="Economy">Economy class</option>
                                             <option value="Business">Business class</option>
                                         </select>
@@ -123,7 +123,7 @@
                               <h5 class="card-title">{{obj.toAirport + ':                        ' }} {{obj.reachTime | date:"shortTime"}}</h5>
         
                               <p class="card-text">{{'Ticket Cost:' + obj.ticketPrice}}</p>
-                              <a href="#" class="btn btn-primary">Book</a>
+                              <button  (click)="bookTicket(obj)" class="btn btn-primary">Book</button>
                             </div>
                           </div>                                                
                     </div>                   

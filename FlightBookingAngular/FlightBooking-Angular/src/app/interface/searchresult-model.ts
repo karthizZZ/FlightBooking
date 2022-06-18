@@ -12,4 +12,7 @@ export interface ISearchResult {
     mealsAvailable: string;
     ticketPrice: number;
     tax: number;
+    bookingDate?:Date;
+    ticketNumbers?:number;
+    seatType?:string;
 }

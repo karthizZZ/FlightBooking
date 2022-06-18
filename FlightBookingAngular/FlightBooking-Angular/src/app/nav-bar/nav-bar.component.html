@@ -22,11 +22,27 @@
                         [routerLinkActiveOptions]="{exact:
                             true}">Home</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="IsAdmin">
                     <a class="nav-link active" aria-current="page" routerLinkActive="active"
                         [routerLink]="['/user']">User Management</a>
                 </li>
+                <li class="nav-item" *ngIf="IsAdmin">
+                    <a class="nav-link active" aria-current="page" routerLinkActive="active"
+                        [routerLink]="['/airline']">Airline Management</a>
+                </li>
+                <li class="nav-item" *ngIf="IsAdmin">
+                    <a class="nav-link active" aria-current="page" routerLinkActive="active"
+                        [routerLink]="['/add-schedule']">Airline Schedule</a>
+                </li>
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" routerLinkActive="active"
+                        [routerLink]="['/managebooking']">Manage Booking</a>
+                </li>
+                <li class="nav-item" *ngIf="IsAdmin">
+                    <a class="nav-link active" aria-current="page" routerLinkActive="active"
+                        [routerLink]="['/schedulelist']">Manage Schedule</a>
+                </li>
+                <li class="nav-item" >
                         <a href class="nav-link" (click)="logout()">Logout</a>
                 </li>
             </ul>

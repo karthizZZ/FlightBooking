@@ -1,0 +1,20 @@
+<div>
+    <div class="card cardcust" *ngFor="let item of bookingList">
+        <h5 class="card-header">{{item.airlineName}}
+            <span *ngIf="item.isCancelled" class="cancelstyle">Cancelled</span>
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title">{{item.fromAirport + '  ------------------>  '+
+              item.toAirport}}
+              <span class="cust1">Total Price: {{item.noOfPassengers *(item.ticketCost + item.tax)}}</span>
+          </h5>
+          <h5>Flight Date : {{item.bookingDate | date:'mediumDate'}}</h5>
+
+          <div>
+            <button *ngIf="getTimeDiff(item.bookingDate) && !item.isCancelled" (click)="cancelTicket(item.pnr)"  class="btn btn-primary jj">Cancel Ticket</button>
+            <button *ngIf="!item.isCancelled"  class="btn btn-primary jj">Download</button>
+            <button  class="btn btn-primary jj">View</button>
+          </div>
+        </div>
+      </div>
+</div>

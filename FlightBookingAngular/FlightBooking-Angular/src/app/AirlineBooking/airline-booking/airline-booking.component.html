@@ -1,0 +1,115 @@
+<div class="container">
+    <main class="main">
+      <div class="row">
+        <div class="col-md-12 col-lg-12">
+          <h4 class="mb-3">Ticket Booking</h4>
+          <form [formGroup]="customerInfo" class="needs-validation">
+            <div class="card mb-2">
+                <h5 class="card-header">{{objj.airlineName}}</h5>
+                <div class="card-body">
+                  <h5 class="card-title">{{objj.fromAirport + ':                        '}} {{objj.startTime | date:"shortTime"}}</h5>
+                  <h5 class="card-title">{{objj.toAirport + ':                        ' }} {{objj.reachTime | date:"shortTime"}}</h5>
+
+                  <p class="card-text">{{'Ticket Cost:' + objj.ticketPrice}}</p>
+                </div>
+              </div>      
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="firstName" class="form-label">Full Name</label>
+                <input type="text" formControlName="fullName" class="form-control" id="fullName" placeholder="Full name" value="" required>
+              </div>
+  
+              <div class="col-sm-6">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email address" value="" required>
+              </div>
+  
+              <div class="col-6">
+                <label for="mealType" class="form-label">Meal Type</label>
+                <p-dropdown  [options]="mealList" [style]="{'width':'525px','padding':'0px'}" formControlName="mealType" placeholder="Select MealType" optionLabel="name" [showClear]="true"></p-dropdown>
+              </div>
+  
+              <div class="col-sm-6">
+                <label for="noOfTickets" class="form-label">No Of Tickets</label>
+                <p-inputNumber [(ngModel)]="noTicket" formControlName="noOfTickets" [style]="{'width':'525px','padding':'0px'}" inputId="noOfTickets" [placeholder]="'No Of Tickets'"  mode="decimal" [min]="1" [max]="5">
+                </p-inputNumber>              </div>
+  
+            </div>
+            <br />
+
+  
+  
+            <div class="card mt-2r">
+              <div class="card-header ">
+                <div class="header-container">
+                  <span class="product-header">
+                    Add Passenger Details
+                  </span>
+                  <svg (click)="addProduct()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
+                  </svg>
+                </div>
+  
+  
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+  
+                    <ul class="list-group">
+                      <li class="list-group-item" formArrayName="products" *ngFor="let product of aliasesArrayControl; let i = index;">
+                        <div [formGroupName]="i" class="row">
+                          <div class="col-4">
+                            <input type="text" formControlName="name" class="form-control" id="firstName" placeholder="Name" value=""
+                              required>
+                            <span *ngIf="product.get('name')?.errors && product.get('name')?.hasError('required')" class="validation">* required</span>
+                          </div>
+                          <div class="col-3">
+                            <p-dropdown [options]="genderList" [style]="{'width':'200px'}" formControlName="gender" placeholder="Select Gender" optionLabel="name" [showClear]="true"></p-dropdown>
+  
+                          </div>
+                          <div class="col-3">
+                            <p-inputNumber formControlName="age" inputId="age" [placeholder]="'Age'"  mode="decimal" [min]="1" [max]="100">
+                            </p-inputNumber>
+                          </div>
+                          <div class="col-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" (click)="deleteDetails(i)" width="16" height="16" fill="currentColor"
+                              class="bi bi-trash-fill" viewBox="0 0 16 16">
+                              <path
+                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="card">
+                <div class="card-header">
+                 Fare Breakup
+                </div>
+                <div class="card-body">
+                 <h5> Ticket price      : {{objj.ticketPrice * noTicket}}</h5>
+                 <h5>Tax         : {{objj.tax * noTicket}}</h5>
+                 <br/>
+                 <h5>Total Price      : {{objj.ticketPrice * noTicket+objj.tax * noTicket}}</h5>
+                  <!-- <h5 class="card-title">Special title treatment</h5> -->
+                  <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+                </div>
+              </div>
+              <br/>
+
+            <button (click)="createCustomerInfo()" class="mt-20 w-100 btn btn-primary btn-lg" type="button">Book Ticket</button>
+            <br/>
+          </form>
+        </div>
+      </div>
+    </main>
+  
+  </div>
+  <p-toast></p-toast>

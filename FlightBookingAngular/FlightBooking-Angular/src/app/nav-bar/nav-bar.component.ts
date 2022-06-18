@@ -8,9 +8,11 @@ import { TokenStorageService } from '../service/token-storage.service';
 })
 export class NavBarComponent implements OnInit {
 
+  IsAdmin:boolean;
   constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
+            this.IsAdmin = this.tokenStorageService.getUser().isAdminUser;
   }
   logout(): void {
     this.tokenStorageService.signOut();

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -18,6 +18,29 @@ import { SliderModule } from 'primeng/slider';
 import { UserService } from './service/user.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AirlineListComponent } from './AirlineManagement/airline-list/airline-list.component';
+import { AddAirlineComponent } from './AirlineManagement/add-airline/add-airline.component';
+import { AddScheduleComponent } from './AirlineSchedule/add-schedule/add-schedule.component';
+
+import {RadioButtonModule} from 'primeng/radiobutton';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutotestComponent } from './AirlineSchedule/autotest/autotest.component';
+import {InputTextModule} from 'primeng/inputtext';
+import {ToastModule} from 'primeng/toast';
+
+import { TimepickerModule} from 'ngx-bootstrap/timepicker';
+import {MultiSelectModule} from 'primeng/multiselect';
+import { ToastComponent } from './toast/toast.component';
+import { DropdownModule } from 'primeng/dropdown';
+import {InputNumberModule} from 'primeng/inputnumber';
+// import { AccordionModule } from 'primeng/accordion';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+
+import { AirlineBookingComponent } from './AirlineBooking/airline-booking/airline-booking.component';
+import { ManagebookingComponent } from './AirlineBooking/managebooking/managebooking.component';
+import { ScheduleListComponent } from './AirlineSchedule/schedule-list/schedule-list.component';
+import { AuthInterceptor } from './helpers/auth.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +52,14 @@ import { RegisterComponent } from './register/register.component';
     NavigationBarComponent,
     LoginComponent,
     RegisterComponent,
+    AirlineListComponent,
+    AddAirlineComponent,
+    AddScheduleComponent,
+    AutotestComponent,
+    ToastComponent,
+    AirlineBookingComponent,
+    ManagebookingComponent,
+    ScheduleListComponent
   ],
   imports: [
     BrowserModule,
@@ -40,9 +71,19 @@ import { RegisterComponent } from './register/register.component';
     CalendarModule,
     SliderModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RadioButtonModule,
+    AutoCompleteModule,
+    InputTextModule,
+    TimepickerModule,
+    MultiSelectModule,
+    ToastModule,
+    DropdownModule,
+    InputNumberModule,
+    AccordionModule.forRoot()
   ],
-  providers: [UserService],
+  providers: [UserService,    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
